@@ -31,3 +31,21 @@ migrate_up:
 
 migrate_down:
 	sqlx migrate revert --database-url "postgres://varunpandey:boombamboom@localhost:5432/coffee_db?sslmode=disable"
+
+
+build:
+	@if [ -f "coffee_api" ]; then \
+		rm coffee_api; \
+		echo "Deleted coffee_api"; \
+	fi
+	@echo "Building coffee_api..."
+	go build -o coffee_api cmd/server/*.go
+
+run: build
+	@echo "Running coffee_api..."
+	./coffee_api
+
+stop:
+	@echo "Stopping server..."
+	@-pkill -SIGTERM -f "./coffee_api"
+	@echo "Server stopped..."
