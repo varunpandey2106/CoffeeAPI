@@ -2,15 +2,11 @@ package db
 
 import (
 	"database/sql"
-<<<<<<< HEAD
 	"time"
-=======
->>>>>>> d7159c2d6a77617532346b74bc9023f116fb5cef
 )
 
 type DB struct{
 	DB * sql.DB
-<<<<<<< HEAD
 }
 
 var dbConn= &DB{}
@@ -20,7 +16,14 @@ const maxIdleDbConn =5
 const maxDbLifeime= 5* time.Minute
 
 func ConnectPostgres(dsn string) (*DB, error){
+	d, err:= sql.Open("pgx", dsn)
+	if err !=nil{
+		return nil, err
+	}
+
+	d.SetMaxOpenConns(maxOpenDbConn)
+	d.SetConnMaxIdleTime(maxIdleDbConn)
+	d.SetConnMaxLifetime(maxDbLifeime )
+
 	
-=======
->>>>>>> d7159c2d6a77617532346b74bc9023f116fb5cef
 }
