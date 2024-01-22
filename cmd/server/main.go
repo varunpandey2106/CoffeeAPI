@@ -2,7 +2,11 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func main(){
@@ -16,15 +20,18 @@ type Config struct{
 
 func (app*Application) Serve() error{
 
-	port:="8080"
-
-	fmt.Println("API is listening on Port:", port)
+	err:=godotenv.Load()
+	if err != nil{
+		log.Fatal("error loading .env file")
+	}
+	port:= os.Getenv("PORT")
+	fmt.Println("API is listening on port: ",port)
 
 	srv:= &http.Server{
-		Addr:	fmt.Sprint(":%s", port),
-		Handler: router.Routes(),
+		Addr: fmt.Sprintf(":%s", port),
 	}
-	return srv.ListenAndServer()
+	return srv.ListenAndServe()
+
 }
 
 type Application struct{
