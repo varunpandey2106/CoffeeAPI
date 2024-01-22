@@ -9,14 +9,16 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func main(){
-	fmt.Println(("API is runnning"))
-
-}
 
 type Config struct{
 	Port string
 }
+
+
+type Application struct{
+	Config Config
+}
+
 
 func (app*Application) Serve() error{
 
@@ -34,6 +36,26 @@ func (app*Application) Serve() error{
 
 }
 
-type Application struct{
-	Config Config
+func main(){
+
+	err:=godotenv.Load()
+	if err != nil{
+		log.Fatal("error loading .env file")
+	}
+
+	cfg:=Config{
+		Port: os.Getenv("PORT"),	
+	}
+
+	app:= &Application{
+		Config: cfg,
+	}
+
+	err= app.Serve()
+	if err!= nil{
+		log.Fatal(err)
+	}
+
+
+
 }
