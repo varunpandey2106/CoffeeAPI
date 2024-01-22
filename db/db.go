@@ -27,7 +27,12 @@ func ConnectPostgres(dsn string) (*DB, error){
 	d.SetConnMaxLifetime(maxDbLifeime )
 
 	err=testDB(d)
+	if err != nil {
+        return nil, err
+    }
 
+    dbConn.DB = d
+    return dbConn, nil
 	
 }
 
