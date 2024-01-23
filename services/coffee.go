@@ -1,6 +1,7 @@
 package services
 
-import(
+import (
+	"context"
 	"time"
 )
 
@@ -16,3 +17,6 @@ type Coffee struct {
     UpdatedAt time.Time `json:"updated_at"`
 }
 
+func (c*Coffee) GetAllCoffees()([]*Coffee, error){
+	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
+}
