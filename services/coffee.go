@@ -19,4 +19,5 @@ type Coffee struct {
 
 func (c*Coffee) GetAllCoffees()([]*Coffee, error){
 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
+	defer cancel()
 }
