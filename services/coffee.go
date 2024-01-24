@@ -27,4 +27,22 @@ func (c*Coffee) GetAllCoffees()([]*Coffee, error){
     if err != nil{
         return nil, err
     }
+
+    var coffees []*Coffee
+    for rows.Next(){
+        var coffee Coffee
+        err:= rows.Scan(
+            &coffee.ID,
+            &coffee.Name,
+            &coffee.Roast,
+            &coffee.Image,
+            &coffee.Region,
+            &coffee.Price,
+            &coffee.GrindUnit,
+            &coffee.CreatedAt,
+            &coffee.UpdatedAt,
+
+
+        )
+    }
 }
