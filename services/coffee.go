@@ -54,6 +54,34 @@ func (c*Coffee) GetAllCoffees()([]*Coffee, error){
     return coffees, nil
 }
 
+func (c *Coffee) GetCoffeeById(id string) (*Coffee, error) {
+    ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
+    defer cancel()
+    query := `
+        SELECT id, name, image, roast, region, price, grind_unit, created_at, updated_at 
+        FROM coffees
+        WHERE id = $1
+    `
+    var coffee Coffee
+
+    row := db.QueryRowContext(ctx, query, id)
+    err := row.Scan(
+        &coffee.ID,
+        &coffee.Name,
+        &coffee.Image,
+        &coffee.Roast,
+        &coffee.Region,
+        &coffee.Price,
+        &coffee.GrindUnit,
+        &coffee.CreatedAt,
+        &coffee.UpdatedAt,
+    )
+
+    if err != nil {
+        return nil, err
+    }
+    return &coffee, nil
+}
 
 func (c*Coffee) CreateCoffee(coffee Coffee)(*Coffee,error){
     ctx, cancel := context.WithTimeout(context.Background(),dbTimeout)
