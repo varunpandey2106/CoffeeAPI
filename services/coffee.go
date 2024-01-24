@@ -20,4 +20,11 @@ type Coffee struct {
 func (c*Coffee) GetAllCoffees()([]*Coffee, error){
 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
 	defer cancel()
+
+    query := `SELECT id, name, image, roast,region,price, grind_unit, created_at, updated_at FROM coffees`
+    rows, err:=db.QueryContext(ctx, query)
+
+    if err != nil{
+        return nil, err
+    }
 }
