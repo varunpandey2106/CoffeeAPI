@@ -44,5 +44,10 @@ func (c*Coffee) GetAllCoffees()([]*Coffee, error){
 
 
         )
+
+        if err != nil{
+            return nil, err
+        }
+        coffees=append(coffees,&coffee)
     }
 }
