@@ -21,6 +21,17 @@ func GetAllCoffees(w http.ResponseWriter, r*http.Request){
 	helpers.WriteJSON(w, http.StatusOK, helpers.Envelope{"coffees": all})
 }
 
+// // GET//coffees/coffee/{id}
+// func GetCoffeeById(w http.ResponseWriter, r *http.Request) {
+//     id := chi.URLParam(r, "id")
+//     coffee, err := coffee.GetCoffeeById(id)
+//     if err != nil {
+//         helpers.MessageLogs.ErrorLog.Println(err)
+//         return
+//     }
+//     helpers.WriteJSON(w, http.StatusOK, coffee)
+// }
+
 func CreateCoffee(w http.ResponseWriter, r*http.Request){
 
 	var coffeeData services.Coffee
