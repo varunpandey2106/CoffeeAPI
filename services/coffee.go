@@ -50,4 +50,11 @@ func (c*Coffee) GetAllCoffees()([]*Coffee, error){
         }
         coffees=append(coffees,&coffee)
     }
+
+    return coffees, nil
+}
+
+
+func (c*Coffee) CreateCoffee(coffee Coffee)(*Coffee,error){
+
 }
