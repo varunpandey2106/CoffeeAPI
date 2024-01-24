@@ -1,11 +1,13 @@
 package helpers
 
 import (
-	"log"
-	"os"
-	"net/http"
 	"encoding/json"
 	"errors"
+	"log"
+	"net/http"
+	"os"
+
+	"github.com/varunpandey2106/CoffeeAPI/services"
 )
 
 type Envelope map[string] interface{}
@@ -49,7 +51,7 @@ func WriteJSON(w http.ResponseWriter, status int, data interface{}, headers ...h
     }
 	w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(status)
-    _, err = w.Write(out)
+    _, err = w.Write(out)    
 
 	if err!= nil{
 		return err
@@ -58,3 +60,15 @@ func WriteJSON(w http.ResponseWriter, status int, data interface{}, headers ...h
 	return nil
 }
 
+
+func ErrorJSON(w http.ResponseWriter, err error, status ...int){
+	statusCode:=http.StatusBadRequest
+	if len(status)>0{
+		statusCode=status[0]
+
+	}
+	var payload services.JsonResponse
+	payload.Error=true
+	payload.Message=err.Error()
+	WriteJSON(w, statusCode, payload)
+}
