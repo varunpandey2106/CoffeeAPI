@@ -1,9 +1,6 @@
 package services
 
-import(
-	"database/sql"
-	
-)
+
 
 type JsonResponse struct{
 	Error bool `json:"error"`

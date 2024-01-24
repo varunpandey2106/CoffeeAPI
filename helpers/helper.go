@@ -12,14 +12,31 @@ import (
 
 type Envelope map[string] interface{}
 
+
 type Message struct {
-	InfoLog*log.Logger
-	Errorog *log.Logger
+    InfoLog *log.Logger
+    ErrorLog *log.Logger
 }
 
+var infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+var errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-var infoLog=log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
-var errorLog=log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+var MessageLogs = &Message{
+    InfoLog: infoLog,
+    ErrorLog: errorLog,
+}
+// type MessageLogs struct {
+// 	InfoLog*log.Logger
+// 	ErroLog *log.Logger
+// }
+
+// type Message struct {
+//     InfoLog *log.Logger
+//     ErrorLog *log.Logger
+// }
+
+// var infoLog=log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+// var errorLog=log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 func ReadJSON(w http.ResponseWriter, r *http.Request, data interface{}) error {
 	maxBytes := 1048576

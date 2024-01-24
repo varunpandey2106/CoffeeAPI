@@ -63,7 +63,7 @@ func main(){
 
 	app:= &Application{
 		Config: cfg,
-		Models: services.New(dbConn.DB)
+		Models: services.New(dbConn.DB),
 	}
 
 	err= app.Serve()

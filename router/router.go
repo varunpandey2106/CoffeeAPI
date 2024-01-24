@@ -23,7 +23,7 @@ func Routes() http.Handler{
     }))
 
 	router.Get("/api/v1/coffees", controllers.GetAllCoffees)
-	router.Post("api/v1/coffees/coffee", controllers.CreateCoffee)
+	router.Post("/api/v1/coffees/coffee", controllers.CreateCoffee)
 	return router
 
 

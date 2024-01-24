@@ -6,6 +6,8 @@ import (
 
 	"github.com/varunpandey2106/CoffeeAPI/helpers"
 	"github.com/varunpandey2106/CoffeeAPI/services"
+	"github.com/go-chi/chi/v5"
+
 )
 
 var coffee services.Coffee
@@ -21,16 +23,16 @@ func GetAllCoffees(w http.ResponseWriter, r*http.Request){
 	helpers.WriteJSON(w, http.StatusOK, helpers.Envelope{"coffees": all})
 }
 
-// // GET//coffees/coffee/{id}
-// func GetCoffeeById(w http.ResponseWriter, r *http.Request) {
-//     id := chi.URLParam(r, "id")
-//     coffee, err := coffee.GetCoffeeById(id)
-//     if err != nil {
-//         helpers.MessageLogs.ErrorLog.Println(err)
-//         return
-//     }
-//     helpers.WriteJSON(w, http.StatusOK, coffee)
-// }
+// GET//coffees/coffee/{id}
+func GetCoffeeById(w http.ResponseWriter, r *http.Request) {
+    id := chi.URLParam(r, "id")
+    coffee, err := coffee.GetCoffeeById(id)
+    if err != nil {
+        helpers.MessageLogs.ErrorLog.Println(err)
+        return
+    }
+    helpers.WriteJSON(w, http.StatusOK, coffee)
+}
 
 func CreateCoffee(w http.ResponseWriter, r*http.Request){
 
@@ -45,7 +47,7 @@ func CreateCoffee(w http.ResponseWriter, r*http.Request){
 	coffeeCreated , err:=coffee.CreateCoffee(coffeeData)
 
 	if err != nil{
-		helpers.MessageLogs.Errorlog.Println(err)
+		helpers.MessageLogs.ErrorLog.Println(err)
 		return
 	}
 	helpers.WriteJSON(w, http.StatusOK, coffeeCreated)
