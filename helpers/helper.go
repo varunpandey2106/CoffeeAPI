@@ -5,6 +5,7 @@ import (
 	"os"
 	"net/http"
 	"encoding/json"
+	"errors"
 )
 
 type Envelope map[string] interface{}
@@ -27,7 +28,19 @@ func ReadJSON(w http.ResponseWriter, r *http.Request, data interface{}) error {
         return err
     }
 
+	err = dec.Decode(&struct{}{})
+    if err != nil {
+        return errors.New("body must have only a single json object")
+    }
 
+    return nil
 
+}
+
+func WriteJSON(w http.ResponseWriter, status int, data interface{}, ...http.Header)error{
+	out, err := json.MarshalIndent(data, "", "\t")
+	if err != nil {
+        return err
+    }
 }
 
